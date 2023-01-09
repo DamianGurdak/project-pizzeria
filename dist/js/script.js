@@ -62,6 +62,7 @@
       thisProduct.data = data;
 
       thisProduct.randerInMenu(); //  uruchomił tę funkcję od razu po utworzeniu instancji
+      thisProduct.initAccordion();
 
       console.log('newProduct:', thisProduct);
     }
@@ -81,6 +82,35 @@
 
       /* [DONE] add element to menu */
       menuContainer.appendChild(thisProduct.element);
+    }
+
+    initAccordion() {
+      const thisProduct = this;
+
+      /* [DONE] find the clickable trigger (the element that should react to clicking) */
+      thisProduct.clickableTrigger = thisProduct.element.querySelector(
+        select.menuProduct.clickable
+      );
+      // console.log('clickableTrigger:', thisProduct.clickableTrigger);
+
+      /* [DONE] START: add event listener to clickable trigger on event click */
+      thisProduct.clickableTrigger.addEventListener('click', function (event) {
+        /* [DONE] prevent default action for event */
+        event.preventDefault();
+
+        /* [DONE] find active product (product that has active class) */
+        const activeProduct = document.querySelector(
+          select.all.menuProductsActive
+        );
+
+        /* [DONE] if there is active product and it's not thisProduct.element, remove class active from it */
+        if (activeProduct && activeProduct != thisProduct.element) {
+          activeProduct.classList.remove('active');
+        }
+
+        /* [DONE] toggle active class on thisProduct.element */
+        thisProduct.element.classList.toggle('active');
+      });
     }
   }
 
