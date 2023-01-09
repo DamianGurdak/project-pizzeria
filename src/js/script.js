@@ -62,7 +62,10 @@
       thisProduct.data = data;
 
       thisProduct.randerInMenu(); //  uruchomił tę funkcję od razu po utworzeniu instancji
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.initprocesOrder();
 
       console.log('newProduct:', thisProduct);
     }
@@ -84,17 +87,31 @@
       menuContainer.appendChild(thisProduct.element);
     }
 
+    getElements() {
+      const thisProduct = this;
+
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(
+        select.menuProduct.clickable
+      );
+      thisProduct.form = thisProduct.element.querySelector(
+        select.menuProduct.form
+      );
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(
+        select.all.formInputs
+      );
+      thisProduct.cartButton = thisProduct.element.querySelector(
+        select.menuProduct.cartButton
+      );
+      thisProduct.priceElem = thisProduct.element.querySelector(
+        select.menuProduct.priceElem
+      );
+    }
+
     initAccordion() {
       const thisProduct = this;
 
-      /* [DONE] find the clickable trigger (the element that should react to clicking) */
-      thisProduct.clickableTrigger = thisProduct.element.querySelector(
-        select.menuProduct.clickable
-      );
-      // console.log('clickableTrigger:', thisProduct.clickableTrigger);
-
       /* [DONE] START: add event listener to clickable trigger on event click */
-      thisProduct.clickableTrigger.addEventListener('click', function (event) {
+      thisProduct.accordionTrigger.addEventListener('click', function (event) {
         /* [DONE] prevent default action for event */
         event.preventDefault();
 
@@ -111,6 +128,56 @@
         /* [DONE] toggle active class on thisProduct.element */
         thisProduct.element.classList.toggle('active');
       });
+    }
+
+    initOrderForm() {
+      const thisProduct = this;
+      console.log('--------------- initORrderForm ---------------');
+
+      thisProduct.form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+
+      for (let input of thisProduct.formInputs) {
+        input.addEventListener('change', function () {
+          thisProduct.processOrder();
+        });
+      }
+
+      thisProduct.cartButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    }
+
+    initprocesOrder() {
+      const thisProduct = this;
+      console.log('--------------- procesOrder ---------------');
+
+      // [IN PROGRESS] covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData', formData);
+
+      // [IN PROGRESS] set price to default price
+      let price = thisProduct.data.price;
+
+      // [IN PROGRESS] for every category (param)...
+      for (let paramId in thisProduct.data.params) {
+        // [IN PROGRESS] determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
+        const param = thisProduct.data.params[paramId];
+        console.log(paramId, param);
+
+        // [IN PROGRESS] for every option in this category
+        for (let optionId in param.options) {
+          // [IN PROGRESS] determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
+          const option = param.options[optionId];
+          console.log(optionId, option);
+        }
+      }
+
+      // [IN PROGRESS] update calculated price in the HTML
+      thisProduct.priceElem.innerHTML = price;
     }
   }
 
