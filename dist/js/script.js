@@ -105,6 +105,9 @@
       thisProduct.priceElem = thisProduct.element.querySelector(
         select.menuProduct.priceElem
       );
+      thisProduct.imageWrapper = thisProduct.element.querySelector(
+        select.menuProduct.imageWrapper
+      );
     }
 
     initAccordion() {
@@ -190,6 +193,19 @@
             if (option && option.default === true) {
               // reduce price variable
               price -= option.price;
+            }
+          }
+
+          const optionImage = thisProduct.imageWrapper.querySelector(
+            '.' + paramId + '-' + optionId
+          );
+          console.log('optionImage:', optionImage);
+
+          if (optionImage) {
+            if (selectedOption) {
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
+            } else {
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
             }
           }
         }
