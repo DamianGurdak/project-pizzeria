@@ -65,9 +65,9 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      thisProduct.initprocesOrder();
+      thisProduct.initProcesOrder();
 
-      console.log('newProduct:', thisProduct);
+      // console.log('newProduct:', thisProduct);
     }
 
     randerInMenu() {
@@ -136,22 +136,22 @@
 
       thisProduct.form.addEventListener('submit', function (event) {
         event.preventDefault();
-        thisProduct.processOrder();
+        thisProduct.initProcesOrder();
       });
 
       for (let input of thisProduct.formInputs) {
         input.addEventListener('change', function () {
-          thisProduct.processOrder();
+          thisProduct.initProcesOrder();
         });
       }
 
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
-        thisProduct.processOrder();
+        thisProduct.initProcesOrder();
       });
     }
 
-    initprocesOrder() {
+    initProcesOrder() {
       const thisProduct = this;
       console.log('--------------- procesOrder ---------------');
 
@@ -166,25 +166,43 @@
       for (let paramId in thisProduct.data.params) {
         // [IN PROGRESS] determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log(paramId, param);
+        // console.log('param:', param);
+        // console.log('paramId:', paramId);
 
         // [IN PROGRESS] for every option in this category
         for (let optionId in param.options) {
           // [IN PROGRESS] determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
-          console.log(optionId, option);
-        }
-      }
+          // console.log('option:', option);
+          // console.log('optionId:', optionId);
 
-      // [IN PROGRESS] update calculated price in the HTML
-      thisProduct.priceElem.innerHTML = price;
+          // [IN PROFRESS] // check if there is param with a name of paramId in formData and if it includes optionId
+          const selectedOption =
+            formData[paramId] && formData[paramId].includes(optionId);
+          if (selectedOption) {
+            // check if the option is not default
+            if (option && option.default != true) {
+              // add option price to price variable
+              price += option.price;
+            }
+          } else {
+            // check if the option is default
+            if (option && option.default === true) {
+              // reduce price variable
+              price -= option.price;
+            }
+          }
+        }
+
+        // [IN PROGRESS] update calculated price in the HTML
+        thisProduct.priceElem.innerHTML = price;
+      }
     }
   }
 
   const app = {
     initMenu: function () {
       const thisApp = this;
-      console.log('thisApp.data:', thisApp.data);
 
       for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]); //tworzenie instancji
