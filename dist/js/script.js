@@ -226,13 +226,13 @@
             formData[paramId] && formData[paramId].includes(optionId);
           if (selectedOption) {
             // check if the option is not default
-            if (option && option.default != true) {
+            if (!option.default) {
               // add option price to price variable
               price += option.price;
             }
           } else {
             // check if the option is default
-            if (option && option.default === true) {
+            if (option.default) {
               // reduce price variable
               price -= option.price;
             }
@@ -251,15 +251,14 @@
             }
           }
         }
-
-        /* multiply price by amount */
-        price *= thisProduct.amountWidget.value;
-
-        thisProduct.priceSingle = price;
-
-        // [IN PROGRESS] update calculated price in the HTML
-        thisProduct.priceElem.innerHTML = price;
       }
+      thisProduct.priceSingle = price;
+
+      /* multiply price by amount */
+      price *= thisProduct.amountWidget.value;
+
+      // [IN PROGRESS] update calculated price in the HTML
+      thisProduct.priceElem.innerHTML = price;
     }
 
     initAmountWidget() {
@@ -329,7 +328,7 @@
             formData[paramId] && formData[paramId].includes(optionId);
 
           if (selectedOption) {
-            params[paramId].options = option.label;
+            params[paramId].options[optionId] = option.label;
           }
         }
       }
@@ -352,7 +351,9 @@
 
       // thisWidget.setValue(thisWidget.input.value); // 22
 
-      thisWidget.setValue(settings.amountWidget.defaultValue); // 33
+      thisWidget.setValue(
+        thisWidget.input.value || settings.amountWidget.defaultValue
+      ); // to ma byc ustawione
       thisWidget.initActions();
     }
 
@@ -424,7 +425,7 @@
       thisCart.getElements(element);
       thisCart.initActions();
 
-      console.log('new Cart: ', thisCart);
+      // console.log('new Cart: ', thisCart);
     }
     getElements(element) {
       const thisCart = this;
@@ -467,10 +468,66 @@
       thisCart.dom.productList.appendChild(generateDOM);
 
       /* [] add cartProducts to array*/
-      thisCart.products.push(menuProduct);
+      thisCart.products.push(new CartProduct(menuProduct, generateDOM));
       console.log('tablica produktów:', thisCart.products);
+      // console.log('adding product:', menuProduct);
+    }
+  }
 
-      console.log('adding product:', menuProduct);
+  class CartProduct {
+    constructor(menuProduct, element) {
+      //  Pierwszy arg będzie przyjmował referencję do obiektu podsumowania, a drugi referencję do utworzonego dla tego produktu elementu HTML-u (generatedDOM).
+      const thisCartProduct = this;
+
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.amount = menuProduct.amount;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.params = menuProduct.params;
+
+      thisCartProduct.getElements(element);
+      thisCartProduct.AmountWidget();
+
+      console.log('newCartProduct:', thisCartProduct);
+    }
+
+    getElements(element) {
+      const thisCartProduct = this;
+
+      thisCartProduct.dom = {};
+
+      thisCartProduct.dom.wrapper = element; //to referencja do oryginalnego elementu DOM
+
+      thisCartProduct.dom.amountWidget = element.querySelector(
+        select.cartProduct.amountWidget
+      );
+      thisCartProduct.dom.price = element.querySelector(
+        select.cartProduct.price
+      );
+      thisCartProduct.dom.edit = element.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = element.querySelector(
+        select.cartProduct.remove
+      );
+    }
+
+    AmountWidget() {
+      const thisCartProduct = this;
+
+      thisCartProduct.amountWidget = new AmountWidget(
+        thisCartProduct.dom.amountWidget
+      ); //tutaj nie szuka
+
+      thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
+        thisCartProduct.amount = thisCartProduct.amountWidget.value; // aktualna wartość widgetu (czyli liczby sztuk)
+
+        // thisCartProduct.amount = thisCartProduct.amountWidget.value; //albo z value
+
+        thisCartProduct.price =
+          thisCartProduct.priceSingle * thisCartProduct.amount;
+
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+      });
     }
   }
 
