@@ -3,77 +3,21 @@
     {
       "address": {},
       "phone": {},
-      "totalPrice": 38,
-      "subtotalPrice": 18,
-      "totalNumber": 2,
-      "deliveryFee": 20,
-      "products": [
-        {
-          "id": "cake",
-          "amount": 1,
-          "price": 9,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "breakfast",
-          "amount": 1,
-          "price": 9,
-          "priceSingle": 9,
-          "name": "Zia Giulia's Breakfast",
-          "params": {
-            "coffee": {
-              "label": "Coffee type",
-              "options": {
-                "latte": "Latte"
-              }
-            }
-          }
-        }
-      ],
+      "products": [],
       "id": 1
     },
     {
       "address": {},
       "phone": {},
-      "totalPrice": 38,
-      "subtotalPrice": 18,
-      "totalNumber": 2,
-      "deliveryFee": 20,
-      "products": [
-        {
-          "id": "cake",
-          "amount": 1,
-          "price": 9,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "breakfast",
-          "amount": 1,
-          "price": 9,
-          "priceSingle": 9,
-          "name": "Zia Giulia's Breakfast",
-          "params": {
-            "coffee": {
-              "label": "Coffee type",
-              "options": {
-                "latte": "Latte"
-              }
-            }
-          }
-        }
-      ],
+      "products": [],
       "id": 2
     },
     {
       "address": {},
       "phone": {},
-      "totalPrice": 38,
-      "subtotalPrice": 18,
-      "totalNumber": 2,
+      "totalPrice": 56,
+      "subtotalPrice": 36,
+      "totalNumber": 4,
       "deliveryFee": 20,
       "products": [
         {
@@ -86,8 +30,8 @@
         },
         {
           "id": "breakfast",
-          "amount": 1,
-          "price": 9,
+          "amount": 3,
+          "price": 27,
           "priceSingle": 9,
           "name": "Zia Giulia's Breakfast",
           "params": {
@@ -101,25 +45,6 @@
         }
       ],
       "id": 3
-    },
-    {
-      "address": {},
-      "phone": {},
-      "totalPrice": 38,
-      "subtotalPrice": 18,
-      "totalNumber": 2,
-      "deliveryFee": 20,
-      "products": [
-        {
-          "id": "cake",
-          "amount": 2,
-          "price": 18,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "id": 4
     }
   ],
   "products": [
@@ -324,5 +249,66 @@
         }
       }
     }
-  ]
+  ],
+  "events": [
+    {
+      "id": 1,
+      "date": "2021-01-01",
+      "hour": "12:30",
+      "table": 1,
+      "repeat": false,
+      "duration": 4,
+      "ppl": 3,
+      "starters": []
+    },
+    {
+      "id": 2,
+      "date": "2021-01-01",
+      "hour": "16:00",
+      "table": 3,
+      "repeat": "daily",
+      "duration": 2,
+      "ppl": 3,
+      "starters": [
+        "bread",
+        "lemonWater"
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2021-01-01",
+      "hour": "12:00",
+      "table": 3,
+      "repeat": "daily",
+      "duration": 2,
+      "ppl": 3,
+      "starters": [
+        "bread",
+        "lemonWater"
+      ]
+    },
+    {
+      "id": 4,
+      "date": "2021-01-01",
+      "hour": "13:00",
+      "table": 2,
+      "repeat": "daily",
+      "duration": 4,
+      "ppl": 3,
+      "starters": []
+    },
+    {
+      "id": 5,
+      "date": "2021-01-01",
+      "hour": "18:00",
+      "table": 2,
+      "repeat": "daily",
+      "duration": 2,
+      "ppl": 3,
+      "starters": [
+        "lemonWater"
+      ]
+    }
+  ],
+  "bookings": []
 }
