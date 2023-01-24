@@ -41,10 +41,11 @@ class Cart {
       select.cart.totalNumber
     );
     thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
-    thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
+
     thisCart.dom.address = thisCart.dom.wrapper.querySelector(
       select.cart.address
     );
+    thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
   }
 
   initActions() {
@@ -91,7 +92,6 @@ class Cart {
     const thisCart = this;
 
     thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
-
     thisCart.totalNumber = 0; //całościowej liczbie sztuk
     thisCart.subtotalPrice = 0; //zsumowanej cenie za wszystko (chociaż bez kosztu dostawy)
     thisCart.totalPrice = 0;
@@ -101,18 +101,19 @@ class Cart {
       thisCart.subtotalPrice += cartProduct.price;
     }
 
-    if (thisCart.subtotalPrice != 0) {
-      thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+    if (thisCart.totalNumber == 0) {
+      thisCart.deliveryFee = 0;
     }
+    thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
 
     thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee; //
     thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice; //
+    thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
+    thisCart.dom.totalPrice.innerHTML = thisCart.totalPrice; //czy to jest potrzebne?
 
     for (let price of thisCart.dom.totalPrice) {
       price.innerHTML = thisCart.totalPrice;
     }
-
-    // thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
 
     console.log('----------------------------');
     console.log('amout prize:', thisCart.totalNumber);
@@ -136,8 +137,8 @@ class Cart {
     const url = settings.db.url + '/' + settings.db.orders;
 
     const payload = {
-      address: thisCart.dom.address,
-      phone: thisCart.dom.phone,
+      address: thisCart.dom.address.value,
+      phone: thisCart.dom.phone.value,
       totalPrice: thisCart.totalPrice,
       subtotalPrice: thisCart.subtotalPrice,
       totalNumber: thisCart.totalNumber,
