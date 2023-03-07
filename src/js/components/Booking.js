@@ -267,15 +267,15 @@ class Booking {
     thisBooking.dom.datePickerInput.addEventListener('change', function () {
       for (let table of thisBooking.dom.tables) {
         table.classList.remove(classNames.booking.tableSelected);
-        thisBooking.selectedtable = null;
       }
+      thisBooking.selectedtable = null;
     });
 
     thisBooking.dom.hourPickerInput.addEventListener('change', function () {
       for (let table of thisBooking.dom.tables) {
         table.classList.remove(classNames.booking.tableSelected);
-        thisBooking.selectedtable = null;
       }
+      thisBooking.selectedtable = null;
     });
   }
 
@@ -295,13 +295,13 @@ class Booking {
         event.target.classList.contains(classNames.booking.tableSelected)
       ) {
         for (let table of thisBooking.dom.tables) {
-          table.classList.remove('selected');
+          table.classList.remove(classNames.booking.tableSelected);
         }
         thisBooking.selectedtable = null;
       } else {
         // console.log(' nie zarezerwowny');
         for (let table of thisBooking.dom.tables) {
-          table.classList.remove('selected');
+          table.classList.remove(classNames.booking.tableSelected);
         }
         event.target.classList.add(classNames.booking.tableSelected);
         thisBooking.selectedtable = tableId;
@@ -317,7 +317,7 @@ class Booking {
 
     const payload = {
       date: thisBooking.date,
-      hour: thisBooking.hour,
+      hour: thisBooking.hourPicker.value,
       table: parseInt(thisBooking.selectedtable),
       duration: parseInt(thisBooking.dom.hoursInput.value),
       ppl: parseInt(thisBooking.dom.amountInput.value),
@@ -346,26 +346,28 @@ class Booking {
       body: JSON.stringify(payload),
     };
 
-    // fetch(url, options)
-    //   .then(function (response) {
-    //     if (response.ok) {
-    //       return response.json();
-    //     }
-    //   })
-    //   .then(function (parsedResponse) {
-    //     console.log('parsedResponse', parsedResponse);
-    //   });
-
-    fetch(url, options).then(function (response) {
-      if (response.ok) {
-        thisBooking.makeBooked(
-          payload.date,
-          payload.hour,
-          payload.table,
-          payload.duration
-        );
-      }
-    });
+    if (
+      thisBooking.dom.submitPhone.value.length &&
+      thisBooking.dom.submitAddress.value.length &&
+      thisBooking.selectedtable
+    ) {
+      fetch(url, options).then(function (response) {
+        window.alert('Dziękujęmy za złożenie zamówenia :)');
+        if (response.ok) {
+          thisBooking.makeBooked(
+            payload.date,
+            payload.hour,
+            payload.table,
+            payload.duration
+          );
+          for (let table of thisBooking.dom.tables) {
+            table.classList.remove(classNames.booking.tableSelected);
+          }
+        }
+      });
+    } else {
+      window.alert('Uzupełnij wszystkie pola i wybierz stolik!');
+    }
   }
 }
 

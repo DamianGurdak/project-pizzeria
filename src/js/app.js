@@ -2,6 +2,7 @@ import { settings, select, classNames } from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 
 const app = {
   initBooking: function () {
@@ -9,7 +10,13 @@ const app = {
 
     const widgetContainer = document.querySelector(select.containerOf.booking);
     thisApp.Booking = new Booking(widgetContainer);
+  },
 
+  initHome: function () {
+    const thisApp = this;
+
+    thisApp.homeWidget = document.querySelector(select.containerOf.home);
+    thisApp.home = new Home(thisApp.homeWidget);
   },
 
   initPages: function () {
@@ -20,7 +27,7 @@ const app = {
 
     const idFromHash = window.location.hash.replace('#/', '');
 
-    let pageMatchingHash = thisApp.pages[0].id;
+    let pageMatchingHash = thisApp.pages[0].id; //pierwsze id podstrony
 
     for (let page of thisApp.pages) {
       if (page.id == idFromHash) {
@@ -125,6 +132,7 @@ const app = {
 
     thisApp.initPages();
     thisApp.initData();
+    thisApp.initHome();
     thisApp.initCart();
     thisApp.initBooking();
   },

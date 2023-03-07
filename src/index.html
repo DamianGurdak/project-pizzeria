@@ -13,10 +13,18 @@
       href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     />
+    <link rel="stylesheet" href="vendor/range-slider.min.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/flickity@2/dist/flickity.min.css"
+    />
+
     <link rel="stylesheet" href="vendor/range-slider.min.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -29,6 +37,7 @@
             <h2 class="logo__subtitle">the best homemade Italian food</h2>
           </div>
           <div class="main-nav">
+            <a href="#home">Home</a>
             <a href="#order">Order</a>
             <a href="#booking">Booking</a>
           </div>
@@ -83,9 +92,14 @@
     </header>
 
     <div id="pages">
+      <section id="home">
+        <div class="home-wrapper container"></div>
+      </section>
+
       <section id="order">
         <div id="product-list" class="product-list container"></div>
       </section>
+
       <section id="booking">
         <div class="booking-wrapper container"></div>
       </section>
@@ -291,6 +305,115 @@
         </form>
       </div>
     </script>
+
+    <script id="template-home" type="text/x-handlebars-template">
+      <div class='home'>
+        <section class='panels'>
+
+          <div class='panel'>
+
+            <div class='panel-text-animation'>
+              <h2>ORDER ONLINE</h2><p>Delicious food deliverd to your house</p>
+
+            </div>
+          </div>
+
+          <div class='panel' id='bookPanel'>
+            <div class='panel-text-animation'>
+              <h2>BOOK A TABLE</h2><p>You can choose what you need</p>
+            </div>
+          </div>
+          <div class='panel'>
+            <div class='panel-text'>
+              <h2>Opening hours:</h2>
+              <h3>tue-sun, 12pm-12am</h3>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class='carousel test'
+          data-flickity='{ "autoPlay": 2000 }'
+          data-flickity='{ "wrapAround": false }'
+          data-flickity-options='{ "prevNextButtons": false }'
+        >
+          <div class='carousel-cell'>
+            <div class='carousel-image image1'></div>
+            <div class='carousel-text'>
+              <h3>Amazing Service!</h3>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At
+                asperiores libero possimus ser vero eum magnam nesciunt
+                aspernatur molestias! Dignissimos, tenetur.</p>
+              <p class='author-name'>-Margaret Osborne</p>
+            </div>
+          </div>
+          <div class='carousel-cell'>
+            <div class='carousel-image image2'></div>
+            <div class='carousel-text'>
+              <h3>Tasty pizza!</h3>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At
+                asperiores libero possimus vero eum magnam nesciunt aspernatur
+                molestias! Dignissimos, tenetur.</p>
+              <p class='author-name'>-Margaret Osborne</p>
+            </div>
+          </div>
+          <div class='carousel-cell'>
+            <div class='carousel-image image3'></div>
+            <div class='carousel-text'>
+              <h3>Vege menu!</h3>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At
+                asperiores libero possimus vero eum magnam nesciunt aspernatur
+                molestias! Dignissimos, tenetur.</p>
+              <p class='author-name'>-Margaret Osborne</p>
+            </div>
+          </div>
+        </section>
+
+        <section class='pictures-panel'>
+          <div class='pictures'>
+            <div class='picture-image'>
+              <div class='icons'>
+                <i class='fas fa-heart'></i>
+                <i class='fas fa-project-diagram'></i>
+              </div>
+            </div>
+            <div class='picture-image'>
+              <div class='icons'>
+                <i class='fas fa-heart'></i>
+                <i class='fas fa-project-diagram'></i>
+              </div>
+            </div>
+            <div class='picture-image'>
+              <div class='icons'>
+                <i class='fas fa-heart'></i>
+                <i class='fas fa-project-diagram'></i>
+              </div>
+            </div>
+            <div class='picture-image'>
+              <div class='icons'>
+                <i class='fas fa-heart'></i>
+                <i class='fas fa-project-diagram'></i>
+              </div>
+            </div>
+            <div class='picture-image'>
+              <div class='icons'>
+                <i class='fas fa-heart'></i>
+                <i class='fas fa-project-diagram'></i>
+              </div>
+            </div>
+            <div class='picture-image'>
+              <div class='icons'>
+                <i class='fas fa-heart'></i>
+                <i class='fas fa-project-diagram'></i>
+              </div>
+            </div>
+          </div>
+          <a href='#'>View more on Instagram</a>
+        </section>
+      </div>
+    </script>
+
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
