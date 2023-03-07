@@ -1,4 +1,4 @@
-import { templates, select } from '../settings.js';
+import { templates } from '../settings.js';
 
 class Home {
   constructor(element) {
@@ -9,7 +9,6 @@ class Home {
 
   render(element) {
     const thisHome = this;
-
     const generatedHTML = templates.homeWidget();
 
     thisHome.dom = {};
@@ -17,13 +16,13 @@ class Home {
     thisHome.dom.wrapper = element;
     thisHome.dom.wrapper.innerHTML = generatedHTML;
 
-    thisHome.dom.orderPanel = thisHome.dom.wrapper.querySelector(
-      select.home.orderPanel
-    );
+    // thisHome.dom.orderPanel = thisHome.dom.wrapper.querySelector(
+    //   select.home.orderPanel
+    // );
 
-    thisHome.dom.bookPanel = thisHome.dom.wrapper.querySelector(
-      select.home.bookPanel
-    );
+    // thisHome.dom.bookPanel = thisHome.dom.wrapper.querySelector(
+    //   select.home.bookPanel
+    // );
   }
 
   initWidgets() {
