@@ -1,10 +1,12 @@
-import { templates } from '../settings.js';
+import { templates, select } from '../settings.js';
+import { app } from '../app.js';
 
 class Home {
   constructor(element) {
     const thisHome = this;
 
     thisHome.render(element);
+    thisHome.initActions();
   }
 
   render(element) {
@@ -16,22 +18,31 @@ class Home {
     thisHome.dom.wrapper = element;
     thisHome.dom.wrapper.innerHTML = generatedHTML;
 
-    // thisHome.dom.orderPanel = thisHome.dom.wrapper.querySelector(
-    //   select.home.orderPanel
-    // );
+    thisHome.dom.orderPanel = thisHome.dom.wrapper.querySelector(
+      select.home.orderPanel
+    );
 
-    // thisHome.dom.bookPanel = thisHome.dom.wrapper.querySelector(
-    //   select.home.bookPanel
-    // );
+    thisHome.dom.bookPanel = thisHome.dom.wrapper.querySelector(
+      select.home.bookPanel
+    );
+
+    console.log(thisHome.dom.orderPanel);
+    console.log(thisHome.dom.bookPanel);
   }
 
-  initWidgets() {
+  initActions() {
     const thisHome = this;
 
-    console.log(thisHome.dom.bookPanel);
+    thisHome.dom.orderPanel.addEventListener('click', function (event) {
+      event.preventDefault();
+      const pageId = event.target.getAttribute('value');
+      app.activatePage(pageId);
+    });
 
-    thisHome.dom.orderPanel.addEventListener('click', function () {
-      window.location.href = '#order';
+    thisHome.dom.bookPanel.addEventListener('click', function (event) {
+      event.preventDefault();
+      const pageId = event.target.getAttribute('value');
+      app.activatePage(pageId);
     });
   }
 }

@@ -4,7 +4,7 @@ import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
 import Home from './components/Home.js';
 
-const app = {
+export const app = {
   initBooking: function () {
     const thisApp = this;
 

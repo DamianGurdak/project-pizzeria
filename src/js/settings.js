@@ -43,8 +43,8 @@ export const select = {
     },
   },
   home: {
-    orderPanel: '#orderPanel',
-    bookPanel: '#bookPanel',
+    orderPanel: '.order-panel',
+    bookPanel: '.book-panel',
   },
   booking: {
     peopleAmount: '.people-amount',
